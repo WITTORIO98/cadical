@@ -734,6 +734,8 @@ int Solver::call_external_solve_and_check_results (bool preprocess_only) {
 }
 
 int Solver::solve () {
+  //TEST
+  system ("echo ciao >> /home/ubuntu/ramdisk/caditest.txt");
   TRACE ("solve");
   REQUIRE_READY_STATE ();
   const int res = call_external_solve_and_check_results (false);
