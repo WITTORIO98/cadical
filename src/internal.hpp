@@ -1604,6 +1604,8 @@ inline bool Internal::terminated_asynchronously (int factor) {
     assert (factor > 0);
     assert (INT_MAX / factor > opts.terminateint);
     lim.terminate.check = factor * opts.terminateint;
+    //TEST REMOVE
+    system ("echo \"heartbeat $(hostname)\" >> /home/ubuntu/ramdisk/caditest.txt");
     if (external->terminator->terminate ()) {
       // TEST
       system ("echo \"pause $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
