@@ -375,6 +375,8 @@ Solver::Solver () {
 }
 
 Solver::~Solver () {
+  //TEST
+  system ("echo \"end $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
 
   TRACE ("reset");
   REQUIRE_VALID_OR_SOLVING_STATE ();
@@ -735,7 +737,7 @@ int Solver::call_external_solve_and_check_results (bool preprocess_only) {
 
 int Solver::solve () {
   //TEST
-  system ("echo ciao >> /home/ubuntu/ramdisk/caditest.txt");
+  system ("echo \"ciao $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
   TRACE ("solve");
   REQUIRE_READY_STATE ();
   const int res = call_external_solve_and_check_results (false);
@@ -849,6 +851,8 @@ void Solver::unphase (int lit) {
 /*------------------------------------------------------------------------*/
 
 void Solver::terminate () {
+  //TEST
+  system ("echo \"pause $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
   LOG_API_CALL_BEGIN ("terminate");
   REQUIRE_VALID_OR_SOLVING_STATE ();
   external->terminate ();
