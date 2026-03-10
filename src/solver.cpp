@@ -851,8 +851,6 @@ void Solver::unphase (int lit) {
 /*------------------------------------------------------------------------*/
 
 void Solver::terminate () {
-  //TEST
-  system ("echo \"pause $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
   LOG_API_CALL_BEGIN ("terminate");
   REQUIRE_VALID_OR_SOLVING_STATE ();
   external->terminate ();
