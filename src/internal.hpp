@@ -1604,10 +1604,8 @@ inline bool Internal::terminated_asynchronously (int factor) {
     assert (factor > 0);
     assert (INT_MAX / factor > opts.terminateint);
     lim.terminate.check = factor * opts.terminateint;
-    //TEST REMOVE
-    system ("echo \"heartbeat $(hostname)\" >> /home/ubuntu/ramdisk/caditest.txt");
     if (external->terminator->terminate ()) {
-      // TEST
+      // TEST  N.B. questa funzione viene chiamata solo al "riavvio"del solver dopo un interrupt pre "pulire"
       system ("echo \"pause $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
       termination_forced = true; // Cache it.
       LOG ("connected terminator forces termination");
