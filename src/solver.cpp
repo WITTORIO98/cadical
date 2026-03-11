@@ -737,7 +737,12 @@ int Solver::call_external_solve_and_check_results (bool preprocess_only) {
 
 int Solver::solve () {
   //TEST
-  system ("echo \"ciao $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
+  char cmd[1024];
+  snprintf (cmd, sizeof (cmd),
+            "echo \"ciao $(hostname) rank $OMPI_COMM_WORLD_RANK vars %d clauses %" PRId64 "\" >> /home/ubuntu/ramdisk/caditest.txt",
+            vars (), irredundant ());
+  system (cmd);
+  
   TRACE ("solve");
   REQUIRE_READY_STATE ();
   const int res = call_external_solve_and_check_results (false);
