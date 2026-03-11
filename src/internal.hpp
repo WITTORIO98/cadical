@@ -106,6 +106,9 @@ extern "C" {
 
 namespace CaDiCaL {
 
+extern int limit_CS;
+extern int limit_data;
+
 using namespace std;
 
 struct Coveror;

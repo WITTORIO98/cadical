@@ -27,6 +27,14 @@ inline void Internal::unassign (int lit) {
   //
   if (queue.bumped < btab[idx])
     update_queue_unassigned (idx);
+    
+  if (limit_CS > 0 && idx <= limit_CS) {
+    if (queue.bumped_cs < btab[idx])
+      update_queue_unassigned_cs (idx);
+  } else if (limit_data > 0 && idx <= limit_data) {
+    if (queue.bumped_data < btab[idx])
+      update_queue_unassigned_data (idx);
+  }
 }
 
 /*------------------------------------------------------------------------*/

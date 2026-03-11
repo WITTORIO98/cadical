@@ -10,6 +10,44 @@ namespace CaDiCaL {
 // the assigned variables (if 'opts.restartreusetrail' is non-zero).
 
 int Internal::next_decision_variable_on_queue () {
+  if (limit_CS > 0) {
+    int64_t searched = 0;
+    int res = queue.unassigned_cs;
+    while (res) {
+      if (res <= limit_CS) {
+        if (!val(res)) break;
+      }
+      res = link (res).prev;
+      searched++;
+    }
+    if (res) {
+      if (searched) {
+        stats.searched += searched;
+        update_queue_unassigned_cs (res);
+      }
+      return res;
+    }
+  }
+
+  if (limit_data > 0) {
+    int64_t searched = 0;
+    int res = queue.unassigned_data;
+    while (res) {
+      if (res > limit_CS && res <= limit_data) {
+        if (!val(res)) break;
+      }
+      res = link (res).prev;
+      searched++;
+    }
+    if (res) {
+      if (searched) {
+        stats.searched += searched;
+        update_queue_unassigned_data (res);
+      }
+      return res;
+    }
+  }
+
   int64_t searched = 0;
   int res = queue.unassigned;
   while (val (res))
@@ -110,6 +148,11 @@ bool Internal::satisfied () {
 bool Internal::better_decision (int lit, int other) {
   int lit_idx = abs (lit);
   int other_idx = abs (other);
+  if (limit_CS > 0 || limit_data > 0) {
+    int group_lit = (lit_idx <= limit_CS) ? 0 : (lit_idx <= limit_data ? 1 : 2);
+    int group_other = (other_idx <= limit_CS) ? 0 : (other_idx <= limit_data ? 1 : 2);
+    if (group_lit != group_other) return group_lit < group_other;
+  }
   if (stable)
     return stab[lit_idx] > stab[other_idx];
   else

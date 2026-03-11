@@ -21,8 +21,11 @@ inline void Internal::init_enqueue (int idx) {
     assert (btab[idx] <= stats.bumped);
     l.next = queue.first;
     queue.first = idx;
-    if (!queue.unassigned)
+    if (!queue.unassigned) {
       update_queue_unassigned (queue.last);
+      if (limit_CS > 0) update_queue_unassigned_cs (queue.last);
+      if (limit_data > 0) update_queue_unassigned_data (queue.last);
+    }
   } else {
     l.next = 0;
     if (queue.last) {
@@ -36,6 +39,8 @@ inline void Internal::init_enqueue (int idx) {
     l.prev = queue.last;
     queue.last = idx;
     update_queue_unassigned (queue.last);
+    if (limit_CS > 0) update_queue_unassigned_cs (queue.last);
+    if (limit_data > 0) update_queue_unassigned_data (queue.last);
   }
 }
 
@@ -84,6 +89,10 @@ void Internal::shuffle_queue () {
   for (int idx = queue.last; idx; idx = links[idx].prev)
     btab[idx] = bumped--;
   queue.unassigned = queue.last;
+  queue.unassigned_cs = queue.last;
+  queue.bumped_cs = bumped;
+  queue.unassigned_data = queue.last;
+  queue.bumped_data = bumped;
 }
 
 } // namespace CaDiCaL

@@ -6,6 +6,9 @@
 
 namespace CaDiCaL {
 
+int limit_CS = 0;
+int limit_data = 0;
+
 /*------------------------------------------------------------------------*/
 
 // See corresponding header file 'cadical.hpp' (!) for more information.

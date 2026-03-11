@@ -28,7 +28,12 @@ struct Queue {
   int unassigned;  // all variables after this one are assigned
   int64_t bumped;  // see 'Internal.update_queue_unassigned'
 
-  Queue () : first (0), last (0), unassigned (0), bumped (0) {}
+  int unassigned_cs;
+  int64_t bumped_cs;
+  int unassigned_data;
+  int64_t bumped_data;
+
+  Queue () : first (0), last (0), unassigned (0), bumped (0), unassigned_cs (0), bumped_cs (0), unassigned_data (0), bumped_data (0) {}
 
   // We explicitly provide the mapping of integer indices to links to the
   // following two (inlined) functions.  This avoids including
