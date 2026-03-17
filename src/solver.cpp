@@ -739,7 +739,8 @@ int Solver::solve () {
   //TEST
   char cmd[1024];
   snprintf (cmd, sizeof (cmd),
-            "echo \"ciao $(hostname) rank $OMPI_COMM_WORLD_RANK vars %d clauses %" PRId64 "\" >> /home/ubuntu/ramdisk/caditest.txt",
+            "echo \"strategy %s $(hostname) rank $OMPI_COMM_WORLD_RANK vars %d clauses %" PRId64 "\" >> /home/ubuntu/ramdisk/caditest.txt",
+            internal->stable ? "VSIDS" : "VMTF",
             vars (), irredundant ());
   system (cmd);
   
