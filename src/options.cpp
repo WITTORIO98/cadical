@@ -148,12 +148,15 @@ Options::Options (Internal *s) : internal (s) {
   initialize_from_environment (N, #N, L, H);
   OPTIONS
 #undef OPTION
+  stabilizeonly = 1;
 }
 
 /*------------------------------------------------------------------------*/
 
 void Options::set (Option *o, int new_val) {
   assert (o);
+  if (!strcmp (o->name, "stabilizeonly"))
+    new_val = 1;
   int &val = o->val (this), old_val = val;
   if (old_val == new_val) {
     LOG ("keeping value '%d' of option '%s'", old_val, o->name);
