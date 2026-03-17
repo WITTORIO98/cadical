@@ -13,6 +13,7 @@ Internal::Internal ()
       external_prop (false), did_external_prop (false),
       external_prop_is_lazy (true), forced_backt_allowed (false), 
       private_steps (false), rephased (0), vsize (0), max_var (0), 
+      n_cs (0), n_data (0),
       clause_id (0), original_id (0), reserved_ids (0), 
       conflict_id (0), concluded (false), lrat (false), level (0), vals (0),
       score_inc (1.0), scores (this), conflict (0), ignore (0),

@@ -180,6 +180,7 @@ struct Internal {
   Reluctant reluctant;        // restart counter in stable mode
   size_t vsize;               // actually allocated variable data size
   int max_var;                // internal maximum variable index
+  int n_cs, n_data;           // thresholds for priority groups
   uint64_t clause_id;         // last used id for clauses
   uint64_t original_id;       // ids for original clauses to produce LRAT
   uint64_t reserved_ids;      // number of reserved ids for original clauses
@@ -1526,6 +1527,23 @@ inline bool score_smaller::operator() (unsigned a, unsigned b) {
   assert (a <= (unsigned) internal->max_var);
   assert (1 <= b);
   assert (b <= (unsigned) internal->max_var);
+
+  auto get_group = [&](unsigned idx) {
+    if (internal->n_cs && (int) idx <= internal->n_cs)
+      return 1;
+    if (internal->n_data && (int) idx <= internal->n_data)
+      return 2;
+    return 3;
+  };
+
+  int group_a = get_group (a);
+  int group_b = get_group (b);
+
+  if (group_a < group_b)
+    return false;
+  if (group_a > group_b)
+    return true;
+
   double s = internal->stab[a];
   double t = internal->stab[b];
 
