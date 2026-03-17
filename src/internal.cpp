@@ -483,7 +483,7 @@ void Internal::init_search_limits () {
     init_averages ();
   } else if (opts.stabilize && opts.stabilizeonly) {
     LOG ("keeping always forced stable phase");
-    assert (stable);
+    stable = true;
   } else if (stable) {
     LOG ("switching back to default non-stable phase");
     stable = false;

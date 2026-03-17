@@ -149,13 +149,14 @@ Options::Options (Internal *s) : internal (s) {
   OPTIONS
 #undef OPTION
   stabilizeonly = 1;
+  stabilize = 1;
 }
 
 /*------------------------------------------------------------------------*/
 
 void Options::set (Option *o, int new_val) {
   assert (o);
-  if (!strcmp (o->name, "stabilizeonly"))
+  if (!strcmp (o->name, "stabilizeonly") || !strcmp (o->name, "stabilize"))
     new_val = 1;
   int &val = o->val (this), old_val = val;
   if (old_val == new_val) {
