@@ -1623,8 +1623,6 @@ inline bool Internal::terminated_asynchronously (int factor) {
     assert (INT_MAX / factor > opts.terminateint);
     lim.terminate.check = factor * opts.terminateint;
     if (external->terminator->terminate ()) {
-      // TEST  N.B. questa funzione viene chiamata solo al "riavvio"del solver dopo un interrupt pre "pulire"
-      system ("echo \"pause $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
       termination_forced = true; // Cache it.
       LOG ("connected terminator forces termination");
       return true;

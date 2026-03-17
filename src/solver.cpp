@@ -375,9 +375,6 @@ Solver::Solver () {
 }
 
 Solver::~Solver () {
-  //TEST
-  system ("echo \"end $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
-
   TRACE ("reset");
   REQUIRE_VALID_OR_SOLVING_STATE ();
   STATE (DELETING);

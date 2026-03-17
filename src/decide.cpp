@@ -11,7 +11,7 @@ namespace CaDiCaL {
 
 int Internal::next_decision_variable_on_queue () {
   //TEST
-  system ("echo \"VMTF decide active $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
+  system ("echo \"VMTF decide active $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/cadIO/caditest.txt");
   
   int64_t searched = 0;
   int res = queue.unassigned;

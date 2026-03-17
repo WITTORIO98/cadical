@@ -52,7 +52,7 @@ void Internal::learn_unit_clause (int lit) {
 
 void Internal::bump_queue (int lit) {
   //TEST
-  system ("echo \"VMTF bump_queue active $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/caditest.txt");
+  system ("echo \"VMTF bump_queue active $(hostname) rank $OMPI_COMM_WORLD_RANK\" >> /home/ubuntu/ramdisk/cadIO/caditest.txt");
   
   assert (opts.bump);
   const int idx = vidx (lit);
