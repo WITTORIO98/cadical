@@ -737,6 +737,7 @@ int Solver::call_external_solve_and_check_results (bool preprocess_only) {
 
 int Solver::solve () {
   //TEST
+  set("stabilizeonly", 1);
   char cmd[1024];
   snprintf (cmd, sizeof (cmd),
             "echo \"strategy %s $(hostname) rank $OMPI_COMM_WORLD_RANK vars %d clauses %" PRId64 "\" >> /home/ubuntu/ramdisk/cadIO/caditest.txt",
