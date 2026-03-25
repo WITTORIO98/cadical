@@ -738,13 +738,6 @@ int Solver::call_external_solve_and_check_results (bool preprocess_only) {
 
 int Solver::solve () {
   //TEST
-  internal->stable = true;
-  char cmd[1024];
-  snprintf (cmd, sizeof (cmd),
-            "echo \"strategy %s $(hostname) rank $OMPI_COMM_WORLD_RANK vars %d clauses %" PRId64 "\" >> /home/ubuntu/ramdisk/cadIO/caditest.txt",
-            internal->stable ? "VSIDS" : "VMTF",
-            vars (), irredundant ());
-  system (cmd);
   internal->n_cs = 0;
   internal->n_data = 0;
 
@@ -763,6 +756,13 @@ int Solver::solve () {
       }
     }
   }
+  internal->stable = true;
+  char cmd[1024];
+  snprintf (cmd, sizeof (cmd),
+            "echo \"strategy %s $(hostname) rank $OMPI_COMM_WORLD_RANK vars %d clauses %" PRId64 " n_cs %d\" >> /home/ubuntu/ramdisk/cadIO/caditest.txt",
+            internal->stable ? "VSIDS" : "VMTF",
+            vars (), irredundant (), internal->n_cs);
+  system (cmd);
   
   TRACE ("solve");
   REQUIRE_READY_STATE ();
