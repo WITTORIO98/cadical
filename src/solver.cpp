@@ -2,6 +2,10 @@
 #include "internallrattracer.hpp"
 #include "onthefly_checking.hpp"
 
+#include <fstream>
+#include <string>
+#include <cstdlib>
+
 /*------------------------------------------------------------------------*/
 
 namespace CaDiCaL {
@@ -743,6 +747,22 @@ int Solver::solve () {
   system (cmd);
   internal->n_cs = 0;
   internal->n_data = 0;
+
+  {
+    std::ifstream cs_file("/home/ubuntu/ramdisk/cadIO/CS_group.txt");
+    if (cs_file.is_open()) {
+      std::string line;
+      std::string last_line;
+      while (std::getline(cs_file, line)) {
+        if (!line.empty()) {
+          last_line = line;
+        }
+      }
+      if (!last_line.empty()) {
+        internal->n_cs = std::atoi(last_line.c_str());
+      }
+    }
+  }
   
   TRACE ("solve");
   REQUIRE_READY_STATE ();
